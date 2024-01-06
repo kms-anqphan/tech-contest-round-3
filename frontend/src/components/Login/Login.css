@@ -1,0 +1,54 @@
+/* FILEPATH: /D:/Coding/Javascript/tech-contest-round-3/frontend/src/components/Login.css */
+
+/* Style the container */
+.container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+/* Style the form */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the input fields */
+.input-field {
+  margin-bottom: 10px;
+  outline: none;
+  padding: 8px;
+}
+
+.input-field label {
+  font-weight: bold;
+}
+
+.input-field input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.input-field input:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+/* Style the submit button */
+.submit-button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
