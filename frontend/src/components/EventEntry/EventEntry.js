@@ -82,8 +82,7 @@ export default function EventEntry() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const token = TokenService.getLocalStorageItem("token");
-		EventService.addEvent(token, {
+		EventService.addEvent({
 			title,
 			description,
 			eventStart,
@@ -92,7 +91,10 @@ export default function EventEntry() {
 			registrationEnd,
 			items
 		})
-			.then((res) => console.log(res))
+			.then((res) => {
+				console.log(res)
+				alert("Event created successfully!")
+			})
 			.catch((err) => console.log(err));
 	};
 
