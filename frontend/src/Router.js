@@ -36,6 +36,13 @@ export default function Router() {
 		{
 			path: '/item_entry',
 			element: <CreateItems />
-		}
+		},
+    {
+      path: '/register_event/:eventId',
+    },
+    {
+      path: '*',
+      element: <h1>Not Found</h1>
+    }
   ])
 }
