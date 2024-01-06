@@ -26,8 +26,9 @@ userRouter.post('/', (req, res) => {
 	// hash and salt password
 	let salt = bcrypt.genSaltSync(10);
 	let hash = bcrypt.hashSync(user.password, salt);
+	let id = uuidv4();
 
-	users.set(uuidv4(), { ...user, password: hash });
+	users.set(id, { ...user, password: hash, id });
 
 	res.send('create user');
 });

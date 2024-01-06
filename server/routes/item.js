@@ -21,7 +21,8 @@ itemRouter.get('/:id', (req, res) => {
 
 itemRouter.post('/', (req, res) => {
 	const item = req.body;
-	items.set(uuidv4(), item);
+	const id = uuidv4();
+	items.set(id, { ...item, id: id });
 
 	res.send('create item');
 });
