@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-
 import ItemService from "../../services/ItemService";
+import "./CreateItems.css";
 
 const CreateItems = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState("");
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     ItemService.getAllItems()
-      .then((res) => {
-        setItems(res.data)
-        console.log(res.data)
-      })
+      .then((res) => setItems(res.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -26,11 +23,7 @@ const CreateItems = () => {
   };
 
   const handleOptionsChange = (e) => {
-    const selectedOptions = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setOptions(selectedOptions);
+    setOptions(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -38,7 +31,7 @@ const CreateItems = () => {
     const newItem = {
       description,
       imageUrl: image,
-      options,
+      options: options.split(",").map((option) => option.trim()),
     };
 
     ItemService.addItem(newItem).then(() =>
@@ -53,9 +46,9 @@ const CreateItems = () => {
   };
 
   return (
-    <div>
+    <div className="create-items-container">
       <h2>Create Item</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="create-item-form" onSubmit={handleSubmit}>
         <label>
           Description:
           <input
@@ -72,17 +65,13 @@ const CreateItems = () => {
         <br />
         <label>
           Options:
-          <select multiple value={options} onChange={handleOptionsChange}>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-          </select>
+          <textarea type="text" onChange={handleOptionsChange} />
         </label>
         <br />
         <button type="submit">Create</button>
       </form>
       <h2>Added Items</h2>
-      <table>
+      <table className="item-list-table">
         <thead>
           <tr>
             <th>Description</th>
@@ -94,7 +83,7 @@ const CreateItems = () => {
           {items.map((item, index) => (
             <tr key={index}>
               <td>{item.description}</td>
-              <img src={item.imageUrl} alt={`img-${index}`} />
+              <img className="item-image" src={item.imageUrl} alt={`img-${index}`} />
               <td>{item.options.join(", ")}</td>
             </tr>
           ))}
