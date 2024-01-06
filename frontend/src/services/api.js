@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import TokenService from './TokenService';
 
-const API_BASE_URL = 'http://localhost:5000/team4/page1/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const instance = axios.create({
   baseURL: API_BASE_URL
