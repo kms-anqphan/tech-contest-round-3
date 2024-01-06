@@ -21,6 +21,10 @@ eventRouter.get('/:id', (req, res) => {
 });
 
 eventRouter.post('/', authenticate, (req, res) => {
+	if (req.user.role !== 'admin') {
+		res.status(401).send('user not admin');
+		return;
+	}
 	const event = req.body;
 	const id = uuidv4();
 	events.set(id, { ...event, id });
@@ -29,6 +33,10 @@ eventRouter.post('/', authenticate, (req, res) => {
 });
 
 eventRouter.put('/:id', authenticate, (req, res) => {
+	if (req.user.role !== 'admin') {
+		res.status(401).send('user not admin');
+		return;
+	}
 	const event = req.body;
 	const id = req.params.id;
 	// update event
@@ -84,6 +92,7 @@ eventRouter.post('/:id/register', authenticate, (req, res) => {
 });
 
 eventRouter.post('/:id/serve', authenticate, (req, res) => {
+
 	const id = req.params.id;
 	const user = req.body;
 	// register user
@@ -100,6 +109,10 @@ eventRouter.post('/:id/serve', authenticate, (req, res) => {
 });
 
 eventRouter.post('/:id/unserved', authenticate, (req, res) => {
+	if (req.user.role !== 'admin') {
+		res.status(401).send('user not admin');
+		return;
+	}
 	// check if any user of the event has not been served, deduct credit score
 	const id = req.params.id;
 	const foundEvent = events.get(id);
