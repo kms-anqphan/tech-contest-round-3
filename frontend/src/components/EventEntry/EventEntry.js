@@ -83,7 +83,7 @@ export default function EventEntry() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const token = TokenService.getLocalStorageItem("token");
-		EventService.createEvent(token, {
+		EventService.addEvent(token, {
 			title,
 			description,
 			eventStart,
