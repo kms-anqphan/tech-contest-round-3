@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className="container">
+    <div className="login-container">
       <h1>Eventify</h1>
       <form className="form">
         <input
