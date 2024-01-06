@@ -6,6 +6,7 @@ const userRouter = express.Router();
 const { users } = require('../global_store');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
+const authenticate = require('../middleware/auth');
 
 userRouter.get('/', (req, res) => {
 	const userList = Array.from(users.values());
@@ -31,9 +32,9 @@ userRouter.post('/', (req, res) => {
 	res.send('create user');
 });
 
-userRouter.put('/:id', (req, res) => {
+userRouter.put('/', authenticate, (req, res) => {
 	const user = req.body;
-	const id = req.params.id;
+	const id = req.user.id;
 	// update user
 	const foundUser = users.get(id);
 	foundUser = {
@@ -66,7 +67,33 @@ userRouter.post('/login', (req, res) => {
 		return;
 	}
 
-	res.send('login user');
+	// generate token
+	const token = uuidv4();
+	foundUser.token = token;
+	users.set(foundUser.id, foundUser);
+
+	res.send({ token });
+});
+
+userRouter.post('/logout', authenticate, (req, res) => {
+	const user = req.body;
+	// check if user exists
+	const foundUser = Array.from(users.values()).find(u => u.email === user.email);
+	if (!foundUser) {
+		res.status(401).send('user not found');
+		return;
+	}
+	// check if token matches
+	if (foundUser.token !== user.token) {
+		res.status(401).send('token incorrect');
+		return;
+	}
+
+	// generate token
+	foundUser.token = '';
+	users.set(foundUser.id, foundUser);
+
+	res.send('logout');
 });
 
 module.exports = userRouter;
