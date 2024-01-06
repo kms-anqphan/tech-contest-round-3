@@ -1,8 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
-import './Login.css';
+import AuthService from "../../services/AuthService";
+
+import "./Login.css";
+import TokenService from "../../services/TokenService";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,8 +20,14 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const handleSignIn = () => {
-    // Perform sign-in logic here
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    AuthService.login(email, password)
+      .then((res) => {
+        TokenService.setUser({ email, token: res.data.token });
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
