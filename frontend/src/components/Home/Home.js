@@ -7,7 +7,6 @@ export default function Home() {
     <div>
       <h1>Welcome to the Event Management System</h1>
       <p>Here you can manage all the events created by the company.</p>
-      <CreateItems />
     </div>
   );
 }

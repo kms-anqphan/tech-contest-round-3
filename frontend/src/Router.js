@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import EventEntry from "./components/EventEntry/EventEntry";
 
 import TokenService from "./services/TokenService";
+import CreateItems from "./components/CreateItems/CreateItems";
 
 export default function Router() {
   const navigate = useNavigate();
@@ -31,6 +32,10 @@ export default function Router() {
 		{
 			path: '/event_entry',
 			element: <EventEntry />
+		},
+		{
+			path: '/item_entry',
+			element: <CreateItems />
 		}
   ])
 }

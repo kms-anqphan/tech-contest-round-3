@@ -7,6 +7,7 @@
 import React, { useEffect, useState } from "react";
 import TokenService from "../../services/TokenService";
 import EventService from "../../services/EventService";
+import ItemService from "../../services/ItemService";
 import "./EventEntry.css";
 
 export default function EventEntry() {
@@ -20,7 +21,13 @@ export default function EventEntry() {
 	const [itemOptions, setItemOptions] = useState([]);
 
 	useEffect(() => {
-		// load item options from all items
+		// set item options
+		ItemService.getAllItems()
+			.then((res) => {
+				setItemOptions(res.data);
+				console.log(res.data)
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	const handleTitleChange = (e) => {
@@ -89,13 +96,19 @@ export default function EventEntry() {
 			.catch((err) => console.log(err));
 	};
 
+	const itemOptionsDisplay = itemOptions.map((item, index) => {
+		return (
+			<option key={index} value={item.id}>
+				{item.description}
+			</option>
+		);
+	});
+
 	const itemsDisplay = items.map((item, index) => {
 		return (
 			<div key={index}>
 				<select onChange={(e) => handleItemChange(e, index)}>
-					<option value="item1">item1</option>
-					<option value="item2">item2</option>
-					<option value="item3">item3</option>
+					{itemOptionsDisplay}
 				</select>
 				<input type="number" onChange={(e) => handleCountChange(e, index)} />
 				<button onClick={(e) => handleRemoveItem(e, index)}>Remove Item</button>
