@@ -3,6 +3,22 @@ const bcrypt = require('bcrypt');
 let salt = bcrypt.genSaltSync(10);
 
 const events = new Map();
+events.set('1', {
+	id: '1',
+	title: 'event 1',
+	description: 'game on!',
+	eventStart: new Date(),
+	eventEnd: new Date(),
+	registrationStart: new Date(),
+	registrationEnd: new Date(),
+	items: [
+		{
+			item: '1',
+			count: 10,
+		}
+	],
+});
+
 const users = new Map();
 users.set('1', {
 	id: '1',
@@ -34,6 +50,15 @@ users.set('2', {
 });
 
 const items = new Map();
+items.set('1', {
+	id: '1',
+	description: 'item 1',
+	imageUrl: 'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
+	options: [
+		"a",
+		"b"
+	],
+});
 
 module.exports = {
 	events,

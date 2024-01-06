@@ -1,0 +1,17 @@
+.event-card {
+	margin: 10px;
+	width: 300px;
+	height: 300px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+.home-container {
+	padding: 40px
+}
