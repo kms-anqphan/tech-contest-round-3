@@ -11,11 +11,13 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const eventRouter = require('./routes/event');
 const itemRouter = require('./routes/item');
 const userRouter = require('./routes/user');
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/event', eventRouter);
 app.use('/api/item', itemRouter);
