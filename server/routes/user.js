@@ -8,10 +8,10 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const authenticate = require('../middleware/auth');
 
-userRouter.get('/', (req, res) => {
-	const userList = Array.from(users.values());
+userRouter.get('/', authenticate, (req, res) => {
+	const user = req.user;
 
-	res.send(userList);
+	res.send(user);
 });
 
 userRouter.get('/:id', (req, res) => {
@@ -28,7 +28,7 @@ userRouter.post('/', (req, res) => {
 	let hash = bcrypt.hashSync(user.password, salt);
 	let id = uuidv4();
 
-	users.set(id, { ...user, password: hash, id });
+	users.set(id, { ...user, password: hash, id, creditScore: 70, role: 'user' });
 
 	res.send('create user');
 });
