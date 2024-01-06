@@ -47,4 +47,15 @@ eventRouter.delete('/:id', (req, res) => {
 	res.send('delete event');
 });
 
+eventRouter.post('/:id/register', (req, res) => {
+	const id = req.params.id;
+	const user = req.body;
+	// register user
+	const foundEvent = events.get(id);
+	foundEvent.registered_users.push({userId: user.id, itemId: user.itemId});
+	events.set(id, foundEvent);
+
+	res.send('register user');
+});
+
 module.exports = eventRouter;
